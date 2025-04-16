@@ -6,7 +6,7 @@ import yotube from "../../assets/icons/yotube.svg";
 
 function Futr() {
   return (
-    <div className="bgCloor p-4 ">
+    <div className="bgCloor p-4 pt-32">
       <div className=" container m-auto px-12 text-white flex  justify-between pb-12">
         <div className=" flex flex-col gap-4">
           <p className=" ">Savolingiz bormi? Qo'ng'iroq qiling</p>

@@ -31,12 +31,12 @@ export type TopKatigoriesType = {
     id: number;
     imageUrl: string;
     name: string;
-    price: string;
+    price: number;
     stock: number;
   };
   
 
-  
+
 export type CardsDataType = {
   categoryId: number;
   createdAt: string;
@@ -44,7 +44,7 @@ export type CardsDataType = {
   id: number;
   imageUrl: string;
   name: string;
-  price: string;
+  price: number;
   stock: number;
 };
 

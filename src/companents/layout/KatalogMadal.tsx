@@ -24,7 +24,7 @@ function Katalogkatkatalog({
 
       <div
         className={`${
-          showModal ? "opacity-100 " : "opacity-0 "
+          showModal ? "opacity-100 " : "hidden "
         } bg-slate-300 m-auto fixed inset-0 h-[70vh] w-[1500px] rounded-2xl p-4 z-50  mt-60 `}
       >
         <div className=" flex items-center  border-2 border-red-700 p-3 rounded-xl w-64 gap-3">
