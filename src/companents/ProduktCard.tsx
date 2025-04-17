@@ -84,4 +84,6 @@ function ProduktCard({ item }: { item?: CardsDataType }) {
   );
 }
 
+
+
 export default ProduktCard;

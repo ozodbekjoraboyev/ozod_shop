@@ -2,9 +2,6 @@
 import ProduktCard from "@/companents/ProduktCard";
 import { CardsDataType } from "@/type/Types";
 import axios from "axios";
-import { Heart, ShoppingCart } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
