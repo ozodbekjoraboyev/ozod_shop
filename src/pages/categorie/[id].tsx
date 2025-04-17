@@ -7,7 +7,9 @@ import React, { useEffect, useState } from "react";
 
 function CategorieProduct() {
   const [categoriaPage, setCategoriaPage] = useState<CardsDataType[]>([]);
-  const { id } = useParams();
+  const params = useParams();
+  if (!params) return null; // yoki loading ko‘rsatish
+  const id = params.id;
   useEffect(() => {
     axios
       .get(
