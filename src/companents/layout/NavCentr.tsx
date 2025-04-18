@@ -7,15 +7,15 @@ import React, { useState } from "react";
 import menu from "../../assets/images/menu.svg";
 import menu_x from "../../assets/icons/katalog_x.svg";
 import search from "../../assets/icons/search.svg";
-import user from "../../assets/icons/user.svg";
 import yurak from "../../assets/icons/yurak.svg";
 import shop from "../../assets/icons/shop.svg";
 import KatalogMadal from "./KatalogMadal";
 import ShopModal from "@/pages/_companents/ShopModal";
+import DeleteAccountDialog from "@/companents/DeleteAccountDialog";
 
 function NavCentr() {
   const [katalog, setKatalog] = useState(false);
-  const [savatModal, setSavatModal] = useState(false); 
+  const [savatModal, setSavatModal] = useState(false);
 
   return (
     <div>
@@ -58,16 +58,15 @@ function NavCentr() {
         </div>
 
         <div className="flex gap-10">
-          <div className="flex flex-col items-center">
-            <Image width={30} height={30} src={user} alt="user" />
-            <p>Kirish</p>
-          </div>
-        <Link  href={"/sevimlilar"}>
-        <div className="flex flex-col items-center">
-            <Image width={30} height={30} src={yurak} alt="user" />
-            <p>Sevimlilar</p>
-          </div>
-        </Link>
+            {" "}
+       
+       <DeleteAccountDialog/>
+          <Link href={"/sevimlilar"}>
+            <div className="flex flex-col items-center">
+              <Image width={30} height={30} src={yurak} alt="user" />
+              <p>Sevimlilar</p>
+            </div>
+          </Link>
           <div
             className="flex flex-col items-center cursor-pointer hover:opacity-80"
             onClick={() => setSavatModal(true)}

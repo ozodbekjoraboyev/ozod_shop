@@ -1,28 +1,25 @@
 import ProduktCard from "@/companents/ProduktCard";
 import Loading from "./Loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { ProduktIdType } from "@/type/Types";
 
 
 function Cards() {
 
-  const [products, setProducts] = useState<any>()
+  const [products, setProducts] = useState<ProduktIdType[]>()
+  useEffect(()=>{
+    axios.get(  "https://nt.softly.uz/api/front/products?page=1&limit=10").then(res=>{
+      setProducts(res.data.items)
+    })
+  },[])
 
-  const getServerSideProps = async () => {
-    const res = await fetch(
-      "https://nt.softly.uz/api/front/products?page=1&limit=10"
-    );
-    const products = await res.json();
-    setProducts(products);
-  };
-
-  getServerSideProps();
-
-  if (!products || !products.items) {
+  if (!products) {
     return <Loading />;
   }
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {products.items?.map((item: any) => (
+      {products.map((item: any) => (
         <ProduktCard item={item} key={item.id} />
       ))}
     </div>
