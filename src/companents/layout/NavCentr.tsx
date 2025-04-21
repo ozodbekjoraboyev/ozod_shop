@@ -11,7 +11,7 @@ import yurak from "../../assets/icons/yurak.svg";
 import shop from "../../assets/icons/shop.svg";
 import KatalogMadal from "./KatalogMadal";
 import ShopModal from "@/pages/_companents/ShopModal";
-import DeleteAccountDialog from "@/companents/DeleteAccountDialog";
+import LoginDialog from "../LoginDialog";
 
 function NavCentr() {
   const [katalog, setKatalog] = useState(false);
@@ -60,7 +60,7 @@ function NavCentr() {
         <div className="flex gap-10">
             {" "}
        
-       <DeleteAccountDialog/>
+       <LoginDialog/>
           <Link href={"/sevimlilar"}>
             <div className="flex flex-col items-center">
               <Image width={30} height={30} src={yurak} alt="user" />

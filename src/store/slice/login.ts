@@ -1,28 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type AuthSlikeTyope = {
+type AuthSliceType = {
   accessToken?: string;
-  users?: {
+  user?: {
     id: number;
     name: string;
   };
 };
 
-const initialState: AuthSlikeTyope = {
-  accessToken: undefined,
+const initialState: AuthSliceType = {
+  accessToken: typeof window !== "undefined" ? localStorage.getItem("accessToken") || undefined : undefined,
+  user: typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("user") || "null") || undefined
+    : undefined,
 };
 
-const authState = createSlice({
+
+export const authSlice = createSlice({
   name: "auth",
-  initialState: initialState,
+  initialState, 
   reducers: {
-    userLogin: (state, { payload }) => {
+    login: (state, { payload }) => {
       state.accessToken = payload.accessToken;
-      state.users = payload.user;
+      state.user = payload.user;
     },
   },
 });
 
-export const { userLogin } = authState.actions;
-
-export default authState.reducer;
+export const { login } = authSlice.actions;
+export default authSlice.reducer;

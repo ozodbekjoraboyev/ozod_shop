@@ -71,7 +71,6 @@ function Product({produktId}:any) {
             />
           </div>
 
-          {/* Mahsulot haqida ma'lumot */}
           <div className="w-full md:w-1/2">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
               {produktId.name}
