@@ -68,7 +68,7 @@ function ProduktCard({ item }: { item?: CardsDataType }) {
           </p>
           <button
             onClick={() => addCart(item)}
-            className="p-2 rounded-md border-2 border-blue-500 hover:bg-blue-800 hover:text-white transition cursor-pointer"
+            className="p-4 rounded-md border-2 border-blue-500 hover:bg-blue-800 hover:text-white transition cursor-pointer"
           >
             <Image
               width={30}
