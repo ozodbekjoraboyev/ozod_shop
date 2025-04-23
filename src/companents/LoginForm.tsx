@@ -1,6 +1,5 @@
 "use client";
 
-import api from "@/api/api";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,6 +15,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/slice/login";
+import axios from "axios";
 
 const formSchema = z.object({
   email: z
@@ -39,43 +39,25 @@ export function LoginForm({
   });
 
   const dispatch = useDispatch();
-
-  // function onSubmit(values: LoginFormType) {
-  //   api
-  //     .post("/auth/login", values)
-  //     .then((res) => {
-  //       onOpenChange(false);
-  //       dispatch(login(res.data));
-
-  //       localStorage.setItem("accessToken", res.data.accessToken);
-  //       localStorage.setItem("user", JSON.stringify(res.data.user));
-  //     })
-  //     .catch((err) => {
-  //       console.error("Login error:", err);
-  //     });
-  // }
   const onSubmit = (values: LoginFormType) => {
-    api
-      .post("/auth/login", values)
-      .then((res) => {
-        const payload = {
-          accessToken: res.data.accessToken,
-          user: {
-            id: res.data.user.id,
-            name: res.data.user.name,
-          },
-        };
-
-        dispatch(login(payload));
-        localStorage.setItem("user", JSON.stringify(payload.user));
-        localStorage.setItem("accessToken", payload.accessToken);
-        onOpenChange(false);
-      })
-      .catch((err) => {
-        console.error("Login error:", err);
-      });
+    axios
+    .post("https://nt.softly.uz/api/auth/login", {
+      email:values.email,
+      password:values.password
+    })
+    
+    .then((res) => {
+      localStorage.setItem("user", JSON.stringify(res.data));
+      localStorage.setItem("accessToken", res.data);
+      onOpenChange(false);
+      dispatch(login(res.data));
+    })
+    .catch((err) => {
+      console.log(values)
+      console.error("Login error:", err);
+    });
   };
-
+  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -88,7 +70,7 @@ export function LoginForm({
               <FormControl>
                 <Input placeholder="you@example.com" {...field} />
               </FormControl>
-              <FormMessage  />
+              <FormMessage />
             </FormItem>
           )}
         />

@@ -3,15 +3,15 @@
 import Image from "next/image";
 import savat from "../assets/icons/shop.svg";
 import Link from "next/link";
-import { CardsDataType, ProduktType } from "@/type/Types";
-import { addToCart } from "@/store/slice/card.slice";
+import {  CatgoriData, ProduktType } from "@/type/Types";
 import heart from "../assets/icons/heart.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Like } from "@/store/slice/like.slice";
 import { RootState } from "@/store/type";
 import heartred from "../assets/icons/heardRed.svg";
+import { addToCart } from "@/store/slice/card.slice";
 
-function ProduktCard({ item }: { item?: CardsDataType }) {
+function ProduktCard({ item }: { item?: CatgoriData }) {
   if (!item) {
     return (
       <div className="text-red-500">Mahsulot ma'lumotlari mavjud emas.</div>
