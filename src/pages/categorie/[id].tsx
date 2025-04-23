@@ -49,11 +49,10 @@ function CategorieProduct() {
   if (!totalItems) {
     return <div className="text-center mt-20 text-2xl">Yuklanmoqda...</div>;
   }
-  
+
   if (categoriaPage.length === 0) {
     return <div className="text-center mt-20 text-2xl">Mahsulot topilmadi</div>;
   }
-  
 
   const changePage = (newPage: number) => {
     router.push(`/categorie/${id}?page=${newPage}&limit=${limit}`);
