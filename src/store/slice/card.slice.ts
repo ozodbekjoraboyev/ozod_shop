@@ -1,7 +1,7 @@
-import { ProduktIdType } from "@/type/Types";
+import { ProduktType } from "@/type/Types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type CartProductType = ProduktIdType & { count: number };
+export type CartProductType = ProduktType & { count: number };
 
 export type CartState = {
   items: CartProductType[];
@@ -15,7 +15,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<ProduktIdType>) => {
+    addToCart: (state, action: PayloadAction<ProduktType>) => {
       const cartItem = state.items.find(
         (item) => item.id === action.payload.id
       );

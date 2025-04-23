@@ -3,11 +3,16 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/type";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/image"; 
 import userIcon from "../assets/icons/user.svg";
-import RegisterForm from "./LoginForm";
+import { LoginForm } from "./LoginForm";
 
 export default function LoginDialog() {
   const [open, setOpen] = useState(false);
@@ -20,7 +25,7 @@ export default function LoginDialog() {
   const user = useSelector((state: RootState) => state.authSlice.user);
   const name = user?.name;
 
-  if (!mounted) return null; // ❗ Hydration muammosini yechadi
+  if (!mounted) return null;
 
   return (
     <>
@@ -32,7 +37,10 @@ export default function LoginDialog() {
           </div>
         </Link>
       ) : (
-        <div onClick={() => setOpen(true)} className="flex flex-col items-center cursor-pointer">
+        <div
+          onClick={() => setOpen(true)}
+          className="flex flex-col items-center cursor-pointer"
+        >
           <Image width={30} height={30} src={userIcon} alt="user" />
           <p>Kirish</p>
         </div>
@@ -43,7 +51,7 @@ export default function LoginDialog() {
           <DialogHeader>
             <DialogTitle>Kirish</DialogTitle>
           </DialogHeader>
-          <RegisterForm onOpenChange={setOpen} />
+          <LoginForm onOpenChange={setOpen} />
         </DialogContent>
       </Dialog>
     </>

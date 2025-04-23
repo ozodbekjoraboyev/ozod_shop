@@ -2,12 +2,12 @@ import ProduktCard from "@/companents/ProduktCard";
 import Loading from "./Loading";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ProduktIdType } from "@/type/Types";
+import { ProduktType } from "@/type/Types";
 
 
 function Cards() {
 
-  const [products, setProducts] = useState<ProduktIdType[]>()
+  const [products, setProducts] = useState<ProduktType[]>()
   useEffect(()=>{
     axios.get(  "https://nt.softly.uz/api/front/products?page=1&limit=10").then(res=>{
       setProducts(res.data.items)

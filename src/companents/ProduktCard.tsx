@@ -3,7 +3,7 @@
 import Image from "next/image";
 import savat from "../assets/icons/shop.svg";
 import Link from "next/link";
-import { CardsDataType, ProduktIdType } from "@/type/Types";
+import { CardsDataType, ProduktType } from "@/type/Types";
 import { addToCart } from "@/store/slice/card.slice";
 import heart from "../assets/icons/heart.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +18,10 @@ function ProduktCard({ item }: { item?: CardsDataType }) {
     );
   }
   const dispatch = useDispatch();
-  const addCart = (product: ProduktIdType) => {
+  const addCart = (product: ProduktType) => {
     dispatch(addToCart(product));
   };
-  const likeDispatch = (product: ProduktIdType) => {
+  const likeDispatch = (product: ProduktType) => {
     dispatch(Like(product));
   };
 

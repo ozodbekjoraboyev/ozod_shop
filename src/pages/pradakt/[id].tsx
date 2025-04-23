@@ -3,8 +3,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Loading from "../_companents/Loading";
 import Cards from "../_companents/Cards";
-import { useParams } from "next/navigation";
-import { ProduktIdType } from "@/type/Types";
 import { Map, Placemark, YMaps } from "@iminside/react-yandex-maps";
 import { GetServerSidePropsContext } from "next";
 

@@ -1,7 +1,7 @@
 import { addToCart } from "@/store/slice/card.slice";
 import { Like } from "@/store/slice/like.slice";
 import { RootState } from "@/store/type";
-import { ProduktIdType } from "@/type/Types";
+import { ProduktType } from "@/type/Types";
 import savat from "../../assets/icons/shop.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,10 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Sevimlilar() {
   const dispatch = useDispatch();
-  const addCart = (product: ProduktIdType) => {
+  const addCart = (product: ProduktType) => {
     dispatch(addToCart(product));
   };
-  const likeDispatch = (product: ProduktIdType) => {
+  const likeDispatch = (product: ProduktType) => {
     dispatch(Like(product));
   };
 

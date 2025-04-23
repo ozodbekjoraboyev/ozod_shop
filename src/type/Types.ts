@@ -23,7 +23,7 @@ export type CatigoriesProductIdTYpe = {
   totalItems: number;
 };
 
-export type ProduktIdType = {
+export type ProduktType = {
   categoryId: number;
   createdAt: string;
   description: string;
@@ -34,7 +34,7 @@ export type ProduktIdType = {
   stock: number;
 };
 
-export type CardsDataType = {
+export type CatgoriData = {
   categoryId: number;
   createdAt: string;
   description: string;
@@ -43,6 +43,12 @@ export type CardsDataType = {
   name: string;
   price: number;
   stock: number;
+};
+
+export type ButtonType = {
+  limit: number;
+  page: number;
+  totalItems: number;
 };
 
 export type BAnnerType = {

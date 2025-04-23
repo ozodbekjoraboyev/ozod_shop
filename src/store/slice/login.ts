@@ -9,16 +9,19 @@ type AuthSliceType = {
 };
 
 const initialState: AuthSliceType = {
-  accessToken: typeof window !== "undefined" ? localStorage.getItem("accessToken") || undefined : undefined,
-  user: typeof window !== "undefined"
-    ? JSON.parse(localStorage.getItem("user") || "null") || undefined
-    : undefined,
+  accessToken:
+    typeof window !== "undefined"
+      ? localStorage.getItem("accessToken") || undefined
+      : undefined,
+  user:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user") || "null") || undefined
+      : undefined,
 };
-
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState, 
+  initialState,
   reducers: {
     login: (state, { payload }) => {
       state.accessToken = payload.accessToken;

@@ -1,4 +1,5 @@
 "use client";
+
 import ProduktCard from "@/companents/ProduktCard";
 import {
   Pagination,
@@ -9,66 +10,107 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { CardsDataType } from "@/type/Types";
+import { ButtonType, CatgoriData } from "@/type/Types";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function CategorieProduct() {
-  const [categoriaPage, setCategoriaPage] = useState<CardsDataType[]>([]);
-  const [page, setPage] = useState<number>(1);
+  const [categoriaPage, setCategoriaPage] = useState<CatgoriData[]>([]);
+  const [totalItems, setTotalItems] = useState<ButtonType | null>(null);
 
-  const params = useParams(); // ✅ doim tepada turishi kerak
-  const router = useRouter(); // ✅ hamisha hooklar yuqorida
+  const router = useRouter();
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 4;
 
-  const { id } = router.query;
+  const id = params?.id;
 
   useEffect(() => {
-    if (!id) return; // ❗️Hook tashqarisida emas, ichida shart qil
     axios
       .get(
-        `https://nt.softly.uz/api/front/products?categoryId=${id}&page=${page}&limit=10`
+        `https://nt.softly.uz/api/front/products?categoryId=${id}&page=${page}&limit=${limit}`
       )
       .then((res) => {
-        console.log(res.data.items);
         setCategoriaPage(res.data.items);
+        setTotalItems(res.data);
+      })
+      .catch((err) => {
+        console.error("Xatolik:", err);
       });
-  }, [id, page]);
+  }, [id, page, limit]);
 
-  if (!params || !id) {
+  const totalPages = Math.ceil(
+    (totalItems?.totalItems || 0) / (totalItems?.limit || 1)
+  );
+
+  if (!totalItems) {
     return <div className="text-center mt-20 text-2xl">Yuklanmoqda...</div>;
   }
-
+  
   if (categoriaPage.length === 0) {
-    return (
-      <div className="mx-auto container text-center mt-20 text-4xl ">
-        Ma'lumot yo‘q
-      </div>
-    );
+    return <div className="text-center mt-20 text-2xl">Mahsulot topilmadi</div>;
   }
+  
 
+  const changePage = (newPage: number) => {
+    router.push(`/categorie/${id}?page=${newPage}&limit=${limit}`);
+  };
   return (
-    <div className="grid grid-cols-4 container w-full mx-auto px-6 py-4">
-      {categoriaPage.map((item) => (
-        <ProduktCard item={item} key={item.id} />
-      ))}
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem onClick={() => setPage(page - 1)}>
-            <PaginationPrevious href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">{page}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem onClick={() => setPage(page + 1)}>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+    <div className="container mx-auto px-6 py-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {categoriaPage.map((item) => (
+          <ProduktCard item={item} key={item.id} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <Pagination className="mt-6 justify-center">
+          <PaginationContent>
+            {page > 1 && (
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changePage(page - 1);
+                  }}
+                />
+              </PaginationItem>
+            )}
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  href="#"
+                  isActive={page === index + 1}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changePage(index + 1);
+                  }}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            {page < totalPages && (
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changePage(page + 1);
+                  }}
+                />
+              </PaginationItem>
+            )}
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 }
