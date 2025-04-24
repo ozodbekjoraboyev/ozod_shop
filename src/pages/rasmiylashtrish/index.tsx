@@ -12,6 +12,7 @@ function Rasmiylashtrish() {
   const [selected, setSelected] = useState<"delivery" | "pickup" | null>(null);
   const [faolik, setfaolik] = useState<"delivery" | "pickup" | null>(null);
   const cartItem = useSelector((state: RootState) => state.cart.items);
+  const [adrs, setAdrs] = useState("");
   const acctocen = useSelector(
     (state: RootState) => state.authSlice.accessToken
   );
@@ -21,40 +22,38 @@ function Rasmiylashtrish() {
     dispatch(removeCart(id));
   };
 
-  useEffect(() => {
-    axios
-      .post(
-        `https://nt.softly.uz/api/front/orders`,
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Formani refresh bo'lishidan saqlaydi
+  
+    try {
+      const res = await axios.post(
+        "https://nt.softly.uz/api/front/orders",
         {
-          acctocen: acctocen,
-          items: [
-            {
-              productId: cartItem.map((item) => {
-                return item.id;
-              }),
-              puattity: cartItem.map((item2) => {
-                return item2.count;
-              }),
-            },
-          ],
+          items: cartItem.map((item) => ({
+            productId: item.id,
+            quantity: item.count,
+          })),
         },
-        { headers: { Authorization: `Bearer ${acctocen}` }
+        {
+          headers: {
+            Authorization: `Bearer ${acctocen}`,
+          },
+        }
+      );
+  
+      console.log("Buyurtma yuborildi:", res.data);
+      // Bu yerda istasang navigatsiya qilish yoki holatni o‘zgartirish mumkin
+    } catch (error) {
+      console.error("Xatolik:", error);
     }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
+  };
+  
 
   return (
     <div className="container mx-auto pb-32 px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-3 items-center">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-          className="w-full"
-        >
+      <form onSubmit={handleSubmit} className="w-full">
+
           <h1 className="text-2xl font-bold mb-6">Xaridni rasmiylashtirish</h1>
 
           <div className="mb-12">
@@ -138,6 +137,11 @@ function Rasmiylashtrish() {
                   <div className="flex flex-col gap-5">
                     <div className="flex flex-col md:flex-row gap-4 items-center w-full">
                       <Input
+                        value={adrs}
+                        onChange={(e) => {
+                          console.log(e.currentTarget.value);
+                          setAdrs(e.currentTarget.value);
+                        }}
                         name="city"
                         required
                         className="border border-b-gray-200 h-12 w-full"
@@ -202,12 +206,13 @@ function Rasmiylashtrish() {
           </div>
 
           <div className="pt-12">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition"
-            >
-              Keyingisi
-            </button>
+          <button
+  type="submit"
+  className="bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition"
+>
+  Keyingisi
+</button>
+
           </div>
         </form>
 
