@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { minusCount, plusCount, removeCart } from "@/store/slice/card.slice";
 import { RootState } from "@/store/type";
+import Rasmiylashtrish from "../rasmiylashtrish";
 
 type Props = {
   savatModal: boolean;
@@ -21,6 +22,7 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
   const remove = (id: number) => {
     dispatch(removeCart(id));
   };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -99,11 +101,12 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
           )}
         </div>
 
-        {/* RIGHT: Summary / Info */}
         <div className="col-span-1 p-8 bg-gray-50 flex flex-col justify-between">
           <div>
             <h3 className="text-xl font-semibold mb-4">Buyurtma xulosasi</h3>
-            <p className="text-gray-600 mb-2">Jami mahsulotlar: {cartItem.length} ta</p>
+            <p className="text-gray-600 mb-2">
+              Jami mahsulotlar: {cartItem.length} ta
+            </p>
             <p className="text-gray-600 mb-2">
               Umumiy summa:{" "}
               <span className="font-semibold text-black">
@@ -114,10 +117,11 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
               </span>
             </p>
           </div>
-
-          <button className="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
-            Buyurtmani rasmiylashtirish
-          </button>
+          <Link href={"/rasmiylashtrish"}>
+            <button onClick={()=>setSavatModal(false)}  className="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
+              Buyurtmani rasmiylashtirish
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -125,10 +129,3 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
 };
 
 export default ShopModal;
-
-
-
-
-
-
-

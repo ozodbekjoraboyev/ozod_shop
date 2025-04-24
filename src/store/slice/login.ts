@@ -5,6 +5,7 @@ type AuthSliceType = {
   user?: {
     id: number;
     name: string;
+
   };
 };
 
@@ -17,6 +18,7 @@ const initialState: AuthSliceType = {
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user") || "null") || undefined
       : undefined,
+     
 };
 
 export const authSlice = createSlice({
