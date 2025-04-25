@@ -47,8 +47,7 @@ export function LoginForm({
     })
     
     .then((res) => {
-      localStorage.setItem("user", JSON.stringify(res.data));
-      localStorage.setItem("accessToken", res.data);
+     
       onOpenChange(false);
       dispatch(login(res.data));
     })

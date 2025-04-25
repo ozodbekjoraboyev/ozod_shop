@@ -58,3 +58,46 @@ export type BAnnerType = {
   isActive: boolean;
   createdAt: string;
 };
+
+
+
+
+
+
+
+export type ProfilType = {
+  items: Items[];
+  length: number;
+  limit: number;
+  page: number;
+  totalItems: number;
+};
+
+ type Items = {
+  createdAt: number;
+  items: Items2[];
+  customerId: number;
+  id: number;
+  status: number;
+  totalPrice: number;
+};
+
+ type Items2 = {
+  id: number;
+  orderId: number;
+  price: number;
+  product: Product;
+  productId: number;
+  quantity: number;
+};
+
+ type Product = {
+  categoryId: number;
+  createdAt: string;
+  description: string;
+  id: number;
+  imageUrl: string;
+  name: string;
+  price: number;
+  stock: number;
+};

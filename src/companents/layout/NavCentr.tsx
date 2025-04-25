@@ -11,7 +11,11 @@ import yurak from "../../assets/icons/yurak.svg";
 import shop from "../../assets/icons/shop.svg";
 import KatalogMadal from "./KatalogMadal";
 import ShopModal from "@/pages/_companents/ShopModal";
-import LoginDialog from "../LoginDialog";
+import dynamic from "next/dynamic";
+// import LoginDialog from "../LoginDialog";
+const LoginDialog = dynamic(()=>import("../LoginDialog"),{
+  ssr: false
+})
 
 function NavCentr() {
   const [katalog, setKatalog] = useState(false);
