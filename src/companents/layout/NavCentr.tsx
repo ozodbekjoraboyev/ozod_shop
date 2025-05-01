@@ -12,6 +12,8 @@ import shop from "../../assets/icons/shop.svg";
 import KatalogMadal from "./KatalogMadal";
 import ShopModal from "@/pages/_companents/ShopModal";
 import dynamic from "next/dynamic";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/type";
 const LoginDialog = dynamic(() => import("../LoginDialog"), {
   ssr: false,
 });
@@ -19,6 +21,12 @@ const LoginDialog = dynamic(() => import("../LoginDialog"), {
 function NavCentr() {
   const [katalog, setKatalog] = useState(false);
   const [savatModal, setSavatModal] = useState(false);
+  const likeLength = useSelector(
+    (state: RootState) => state.FavoriteCard.items.length
+  );
+  const savatLength = useSelector(
+    (state: RootState) => state.cart.items.length
+  );
 
   return (
     <div>
@@ -63,23 +71,40 @@ function NavCentr() {
         <div className="flex gap-10">
           <LoginDialog />
           <Link href={"/sevimlilar"}>
-            <div className="flex flex-col items-center">
-              <Image width={30} height={30} src={yurak} alt="user" />
+            <div className="flex flex-col items-center relative">
+              <Image
+                width={30}
+                height={30}
+                src={yurak}
+                alt="user"
+                className=" relative"
+              />
               <p>
                 Sevimlilar{" "}
-                <span className="bg-blue-800 text-white text-sm font-semibold p-1 px-3 rounded-full">
-                  {[1, 2, 3, 4, 5].length}
-                </span>
+                {likeLength > 0 ? (
+                  <span className="bg-blue-700 px-2 text-white absolute right-[1px] -top-3 rounded-full ">
+                    {likeLength}
+                  </span>
+                ) : (
+                  <></>
+                )}
               </p>
             </div>
           </Link>
           <div
-            className="flex flex-col items-center cursor-pointer hover:opacity-80"
+            className="flex flex-col items-center cursor-pointer relative hover:opacity-80"
             onClick={() => setSavatModal(true)}
           >
             <Image width={30} height={30} src={shop} alt="shop" />
             <p className="text-sm">Savatcha</p>
-            <span className=" bg-blue-700 px-2 text-white absolute right-56 top-15 rounded-full "></span>
+
+            {savatLength > 0 ? (
+              <span className=" bg-blue-700 px-2 text-white absolute right-[1px] -top-3 rounded-full">
+                {savatLength}
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
