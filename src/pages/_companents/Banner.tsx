@@ -37,7 +37,6 @@ const Banner = () => {
     <>
       <div className="container mx-auto px-4">
         <div className="z-0 relative w-full max-w-8xl mx-auto mt-4 h-[250px] md:h-[400px] overflow-hidden rounded-2xl shadow-lg group">
-          {/* Navigation Buttons */}
           <button
             onClick={handlePrev}
             aria-label="Previous slide"
@@ -54,7 +53,6 @@ const Banner = () => {
             <ArrowRight className="w-6 h-6 md:w-7 md:h-7" />
           </button>
 
-          {/* Content */}
           {loading ? (
             <div className="flex items-center justify-center h-full text-white bg-gray-800 rounded-2xl">
               <p>Loading banners...</p>
@@ -69,8 +67,8 @@ const Banner = () => {
               className="w-full h-full transition-all duration-700 ease-in-out relative"
             >
               <Image
-                src={banners[current].imageUrl}
-                alt={banners[current].title}
+               src={banners[current]?.imageUrl || "/placeholder.jpg"}
+  alt={banners[current]?.title || "Banner"}
                 width={1200}
                 height={400}
                 className="object-cover w-full h-full rounded-2xl"
@@ -86,7 +84,6 @@ const Banner = () => {
           )}
         </div>
       </div>
-      
     </>
   );
 };

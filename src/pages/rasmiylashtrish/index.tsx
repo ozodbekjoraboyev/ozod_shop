@@ -1,16 +1,19 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { minusCount, plusCount, removeCart } from "@/store/slice/card.slice";
+import {
+  fullRemo,
+  minusCount,
+  plusCount,
+  removeCart,
+} from "@/store/slice/card.slice";
 import { RootState } from "@/store/type";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 function Rasmiylashtrish() {
-  const [selected, setSelected] = useState<"delivery" | "pickup" | null>(null);
-  const [faolik, setfaolik] = useState<"delivery" | "pickup" | null>(null);
   const cartItem = useSelector((state: RootState) => state.cart.items);
   const [adrs, setAdrs] = useState("");
   const acctocen = useSelector(
@@ -22,13 +25,18 @@ function Rasmiylashtrish() {
     dispatch(removeCart(id));
   };
 
+  const tozalash = () => {
+    dispatch(fullRemo());
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Formani refresh bo'lishidan saqlaydi
-  
-    try {
-      const res = await axios.post(
-        "https://nt.softly.uz/api/front/orders",
+    e.preventDefault();
+
+    axios
+      .post(
+        `https://nt.softly.uz/api/front/orders`,
         {
+          address: adrs,
           items: cartItem.map((item) => ({
             productId: item.id,
             quantity: item.count,
@@ -39,166 +47,42 @@ function Rasmiylashtrish() {
             Authorization: `Bearer ${acctocen}`,
           },
         }
-      );
-  
-      console.log("Buyurtma yuborildi:", res.data);
-      // Bu yerda istasang navigatsiya qilish yoki holatni o‘zgartirish mumkin
-    } catch (error) {
-      console.error("Xatolik:", error);
-    }
+      )
+      .then((res) => {
+        console.log(res.data);
+        toast.success("buyurtma jo'na tildi");
+        tozalash();
+      })
+      .catch(() => {
+        toast.error("mahsulot qolmagan");
+      });
   };
-  
 
   return (
     <div className="container mx-auto pb-32 px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-3 items-center">
-      <form onSubmit={handleSubmit} className="w-full">
-
+        <form onSubmit={handleSubmit} className="w-full">
           <h1 className="text-2xl font-bold mb-6">Xaridni rasmiylashtirish</h1>
 
-          <div className="mb-12">
-            <h2 className="p-2 pb-3">
-              <span className="bg-green-500 text-white text-xl p-2 px-4 py-2 rounded-full">
-                1
-              </span>{" "}
-              Sizning ma'lumotlaringiz
-            </h2>
-
-            <div className="flex flex-col gap-4">
-              <Input
-                name="phone"
-                required
-                type="tel"
-                className="border border-b-gray-200 h-12"
-                placeholder="Telefon raqamingiz"
-              />
-
-              <div className="flex flex-col md:flex-row gap-4">
-                <Input
-                  name="firstName"
-                  required
-                  className="border border-b-gray-200 h-12"
-                  placeholder="Ism"
-                />
-                <Input
-                  name="lastName"
-                  required
-                  className="border border-b-gray-200 h-12"
-                  placeholder="Familya"
-                />
-              </div>
-            </div>
-          </div>
-
           <div>
-            <h2 className="p-2 pb-3">
-              <span className="bg-green-500 text-white text-xl p-2 px-4 py-2 rounded-full">
-                2
-              </span>{" "}
-              Qabul qilish usuli
-            </h2>
-
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col md:flex-row gap-4 w-full">
-                <div
-                  onClick={() => setSelected("delivery")}
-                  className={`cursor-pointer w-full border rounded-xl h-12 flex items-center justify-between px-4 transition ${
-                    selected === "delivery"
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-300"
-                  }`}
-                >
-                  Yetkazib berish
-                  {selected === "delivery" && (
-                    <span className="text-blue-500">✔</span>
-                  )}
-                </div>
-
-                <div
-                  onClick={() => setSelected("pickup")}
-                  className={`cursor-pointer w-full border rounded-xl h-12 flex items-center justify-between px-4 transition ${
-                    selected === "pickup"
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-300"
-                  }`}
-                >
-                  Do'kondan olib ketish
-                  {selected === "pickup" && (
-                    <span className="text-blue-500">✔</span>
-                  )}
-                </div>
-              </div>
-
-              {selected === "delivery" && (
-                <div className="flex flex-col gap-3">
-                  <h2 className="p-2 pb-3 font-bold text-xl">
-                    Yetkazib berish manzilini kiriting
-                  </h2>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex flex-col md:flex-row gap-4 items-center w-full">
-                      <Input
-                        value={adrs}
-                        onChange={(e) => {
-                          console.log(e.currentTarget.value);
-                          setAdrs(e.currentTarget.value);
-                        }}
-                        name="city"
-                        required
-                        className="border border-b-gray-200 h-12 w-full"
-                        placeholder="Toshkent shahar"
-                      />
-                      <Input
-                        name="district"
-                        required
-                        className="border border-b-gray-200 h-12 w-full"
-                        placeholder="Tuman / hudud"
-                      />
-                    </div>
-
-                    <div className="flex flex-col md:flex-row gap-4 items-center w-full">
-                      <Input
-                        name="address"
-                        required
-                        className="border border-b-gray-200 h-12 w-full"
-                        placeholder="Manzil (masalan: Yunusobod 13-kvartal)"
-                      />
-                      <Input
-                        name="additional"
-                        className="border border-b-gray-200 h-12 w-full"
-                        placeholder="Qo‘shimcha ma’lumot (agar bo‘lsa)"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div className="pt-8">
-                <h2 className="p-2 pb-3 font-semibold">
-                  Yetkazib berish shartlari
+              <div className="flex flex-col gap-3">
+                <h2 className="p-2 pb-3 font-bold text-xl">
+                  Yetkazib berish manzilini kiriting
                 </h2>
-                <div className="flex flex-col md:flex-row gap-4 w-full">
-                  <div
-                    onClick={() => setfaolik("delivery")}
-                    className={`cursor-pointer w-full border rounded-xl h-12 flex items-center justify-between px-4 transition ${
-                      faolik === "delivery"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    Yetkazib berish
-                    {faolik === "delivery" && <span></span>}
-                  </div>
-
-                  <div
-                    onClick={() => setfaolik("pickup")}
-                    className={`cursor-pointer w-full border rounded-xl h-12 flex items-center justify-between px-4 transition ${
-                      faolik === "pickup"
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    Do'kondan olib ketish
-                    {faolik === "pickup" && <span></span>}
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col md:flex-row gap-4 items-center w-full">
+                    <Input
+                      value={adrs}
+                      onChange={(e) => {
+                        console.log(e.currentTarget.value);
+                        setAdrs(e.currentTarget.value);
+                      }}
+                      name="city"
+                      required
+                      className="border border-b-gray-200 h-12 w-full"
+                      placeholder="Toshkent shahar"
+                    />
                   </div>
                 </div>
               </div>
@@ -206,13 +90,13 @@ function Rasmiylashtrish() {
           </div>
 
           <div className="pt-12">
-          <button
-  type="submit"
-  className="bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition"
->
-  Keyingisi
-</button>
-
+            <button
+              type="submit"
+              onClick={() => toast.success(`qo'shildi`)}
+              className="bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition"
+            >
+              jo'natish
+            </button>
           </div>
         </form>
 
@@ -267,16 +151,17 @@ function Rasmiylashtrish() {
                       </div>
 
                       <button
-                        onClick={() => remove(item.id)}
+                        onClick={() => {
+                          remove(item.id);
+                          toast.success(`o'chirili`);
+                        }}
                         className="text-red-500 font-medium border border-red-200 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors whitespace-nowrap"
                       >
                         O'chirish
                       </button>
                     </div>
                   ))}
-                  <div>
-                    <Button>yuborish</Button>
-                  </div>
+                  <div></div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center">

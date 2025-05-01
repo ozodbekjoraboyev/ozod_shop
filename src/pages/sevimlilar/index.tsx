@@ -24,18 +24,6 @@ function Sevimlilar() {
 
   return (
     <div className="container mx-auto px-6 py-10">
-      <div className=" container m-auto flex items-center flex-col p-32">
-        <h1 className="text-3xl font-bold mb-6 text-center  ">
-          Yoqtirgan mahsulotlaringiz
-        </h1>
-        <Link href={"/"}>
-          {" "}
-          <button className=" cursor-pointer border-green-500 border-2 rounded-md p-2 m-auto">
-            {" "}
-            Asosi minyuga qaytish
-          </button>
-        </Link>
-      </div>
       <div className="grid grid-cols-4 gap-4">
         {likeItems.map((item) => {
           const islayked = likeItems.some((liked) => liked.id === item.id);
@@ -92,7 +80,6 @@ function Sevimlilar() {
               </div>
             </div>
           );
-          
         })}
       </div>
     </div>
@@ -100,4 +87,3 @@ function Sevimlilar() {
 }
 
 export default Sevimlilar;
-                                                                                                                                                                                                                                                                                                                

@@ -41,22 +41,21 @@ export function LoginForm({
   const dispatch = useDispatch();
   const onSubmit = (values: LoginFormType) => {
     axios
-    .post("https://nt.softly.uz/api/auth/login", {
-      email:values.email,
-      password:values.password
-    })
-    
-    .then((res) => {
-     
-      onOpenChange(false);
-      dispatch(login(res.data));
-    })
-    .catch((err) => {
-      console.log(values)
-      console.error("Login error:", err);
-    });
+      .post("https://nt.softly.uz/api/auth/login", {
+        email: values.email,
+        password: values.password,
+      })
+
+      .then((res) => {
+        onOpenChange(false);
+        dispatch(login(res.data));
+      })
+      .catch((err) => {
+        console.log(values);
+        console.error("Login error:", err);
+      });
   };
-  
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

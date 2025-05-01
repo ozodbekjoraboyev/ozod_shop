@@ -17,7 +17,6 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
   const cartItem = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (savatModal) {
       document.body.style.overflow = "hidden";
@@ -159,7 +158,9 @@ const ShopModal: React.FC<Props> = ({ setSavatModal, savatModal }) => {
 
             <div className="col-span-1 p-8 bg-gray-50 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-semibold mb-4">Buyurtma xulosasi</h3>
+                <h3 className="text-xl font-semibold mb-4">
+                  Buyurtma xulosasi
+                </h3>
                 <p className="text-gray-600 mb-2">
                   Jami mahsulotlar: {cartItem.length} ta
                 </p>

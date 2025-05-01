@@ -12,10 +12,9 @@ import shop from "../../assets/icons/shop.svg";
 import KatalogMadal from "./KatalogMadal";
 import ShopModal from "@/pages/_companents/ShopModal";
 import dynamic from "next/dynamic";
-// import LoginDialog from "../LoginDialog";
-const LoginDialog = dynamic(()=>import("../LoginDialog"),{
-  ssr: false
-})
+const LoginDialog = dynamic(() => import("../LoginDialog"), {
+  ssr: false,
+});
 
 function NavCentr() {
   const [katalog, setKatalog] = useState(false);
@@ -62,13 +61,16 @@ function NavCentr() {
         </div>
 
         <div className="flex gap-10">
-            {" "}
-       
-       <LoginDialog/>
+          <LoginDialog />
           <Link href={"/sevimlilar"}>
             <div className="flex flex-col items-center">
               <Image width={30} height={30} src={yurak} alt="user" />
-              <p>Sevimlilar</p>
+              <p>
+                Sevimlilar{" "}
+                <span className="bg-blue-800 text-white text-sm font-semibold p-1 px-3 rounded-full">
+                  {[1, 2, 3, 4, 5].length}
+                </span>
+              </p>
             </div>
           </Link>
           <div

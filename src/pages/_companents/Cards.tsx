@@ -18,7 +18,7 @@ function Cards() {
     return <Loading />;
   }
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="grid  container m-auto  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {products.map((item: any) => (
         <ProduktCard item={item} key={item.id} />
       ))}

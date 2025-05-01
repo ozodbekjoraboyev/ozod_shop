@@ -3,13 +3,15 @@
 import Image from "next/image";
 import savat from "../assets/icons/shop.svg";
 import Link from "next/link";
-import {  CatgoriData, ProduktType } from "@/type/Types";
+import { CatgoriData, ProduktType } from "@/type/Types";
 import heart from "../assets/icons/heart.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Like } from "@/store/slice/like.slice";
 import { RootState } from "@/store/type";
 import heartred from "../assets/icons/heardRed.svg";
 import { addToCart } from "@/store/slice/card.slice";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 function ProduktCard({ item }: { item?: CatgoriData }) {
   if (!item) {
@@ -67,7 +69,10 @@ function ProduktCard({ item }: { item?: CatgoriData }) {
             {item.price ? `$${item.price}` : "Narx noma’lum"}
           </p>
           <button
-            onClick={() => addCart(item)}
+            onClick={() => {
+              addCart(item);
+              toast.success(`savatga qo‘shildi`);
+            }}
             className="p-4 rounded-md border-2 border-blue-500 hover:bg-blue-800 hover:text-white transition cursor-pointer"
           >
             <Image
@@ -83,7 +88,5 @@ function ProduktCard({ item }: { item?: CatgoriData }) {
     </div>
   );
 }
-
-
 
 export default ProduktCard;
