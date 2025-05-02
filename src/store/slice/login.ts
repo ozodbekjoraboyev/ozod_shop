@@ -30,8 +30,18 @@ export const authSlice = createSlice({
       state.accessToken = payload.accessToken;
       state.user = payload.user;
     },
+    logout: (state) => {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("auth"); 
+      }
+      state.accessToken = "";
+      state.user = undefined;
+    },
+    
+
   },
+  
 });
 
-export const { login } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

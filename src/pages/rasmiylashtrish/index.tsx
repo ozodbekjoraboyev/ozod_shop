@@ -9,6 +9,7 @@ import { RootState } from "@/store/type";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -19,7 +20,7 @@ function Rasmiylashtrish() {
   const acctocen = useSelector(
     (state: RootState) => state.authSlice.accessToken
   );
-
+const  router =useRouter()
   const dispatch = useDispatch();
   const remove = (id: number) => {
     dispatch(removeCart(id));
@@ -52,6 +53,7 @@ function Rasmiylashtrish() {
         console.log(res.data);
         toast.success("buyurtma jo'na tildi");
         tozalash();
+        router.push("/profile")
       })
       .catch(() => {
         toast.error("mahsulot qolmagan");
