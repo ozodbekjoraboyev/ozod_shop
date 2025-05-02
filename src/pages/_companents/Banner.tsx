@@ -67,8 +67,8 @@ const Banner = () => {
               className="w-full h-full transition-all duration-700 ease-in-out relative"
             >
               <Image
-               src={banners[current]?.imageUrl || "/placeholder.jpg"}
-  alt={banners[current]?.title || "Banner"}
+                src={banners[current]?.imageUrl || "/placeholder.jpg"}
+                alt={banners[current]?.title || "Banner"}
                 width={1200}
                 height={400}
                 className="object-cover w-full h-full rounded-2xl"

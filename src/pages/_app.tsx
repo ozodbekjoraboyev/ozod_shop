@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <NavarHome />
         <Component {...pageProps} />
         <Futr />
-        <Toaster richColors position="top-center"  />
+        <Toaster richColors position="top-center" />
       </Provider>
     </>
   );

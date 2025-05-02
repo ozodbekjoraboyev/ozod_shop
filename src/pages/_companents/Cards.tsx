@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ProduktType } from "@/type/Types";
 
-
 function Cards() {
-
-  const [products, setProducts] = useState<ProduktType[]>()
-  useEffect(()=>{
-    axios.get(  "https://nt.softly.uz/api/front/products?page=1&limit=10").then(res=>{
-      setProducts(res.data.items)
-    })
-  },[])
+  const [products, setProducts] = useState<ProduktType[]>();
+  useEffect(() => {
+    axios
+      .get("https://nt.softly.uz/api/front/products?page=1&limit=10")
+      .then((res) => {
+        setProducts(res.data.items);
+      });
+  }, []);
 
   if (!products) {
     return <Loading />;

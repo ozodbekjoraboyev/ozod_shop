@@ -28,8 +28,8 @@ export const cartSlice = createSlice({
     removeCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
-    fullRemo:(state)=>{
-      state.items = []
+    fullRemo: (state) => {
+      state.items = [];
     },
 
     minusCount: (state, action: PayloadAction<number>) => {
@@ -50,6 +50,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeCart, minusCount, plusCount ,fullRemo} =
+export const { addToCart, removeCart, minusCount, plusCount, fullRemo } =
   cartSlice.actions;
 export default cartSlice.reducer;

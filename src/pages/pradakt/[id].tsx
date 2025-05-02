@@ -6,11 +6,9 @@ import Cards from "../_companents/Cards";
 import { Map, Placemark, YMaps } from "@iminside/react-yandex-maps";
 import { GetServerSidePropsContext } from "next";
 
-
-
 export const getServerSideProps = async ({
-  params
-}:GetServerSidePropsContext) => {
+  params,
+}: GetServerSidePropsContext) => {
   const res = await fetch(
     `https://nt.softly.uz/api/front/products/${params?.id}`
   );
@@ -18,9 +16,7 @@ export const getServerSideProps = async ({
   return { props: { produktId } };
 };
 
-
-function Product({produktId}:any) {
-
+function Product({ produktId }: any) {
   const [lokation, setLokation] = useState<{
     latitude: number;
     longitude: number;
@@ -28,10 +24,6 @@ function Product({produktId}:any) {
   const [address, setAddress] = useState<string | null>(null);
 
   const [loading, setloading] = useState<boolean>(false);
-
-
-
-
 
   if (!produktId) {
     return (

@@ -44,11 +44,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 function CategorieProduct({ data }: { data: CategoryType }) {
-  const {id}=useParams()
+  const { id } = useParams();
   const router = useRouter();
-  const searchParams =useSearchParams()
-  const page = searchParams.get('page')||1
-  const limit = Number(searchParams.get('limit')||5)
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page") || 1;
+  const limit = Number(searchParams.get("limit") || 5);
   // const limit = Number(router.query.limit) || 4;
   // const id = router.query.id;
 
@@ -65,21 +65,19 @@ function CategorieProduct({ data }: { data: CategoryType }) {
       {totalPages > 1 && (
         <Pagination className="mt-6 justify-center">
           <PaginationContent>
-            
-
             {[...Array(totalPages)].map((_, index) => (
               <PaginationItem key={index}>
                 <Link
-                  href={`/categorie/${id}?page=${index+1}&limit=${limit}`}>
-                <Button variant={index+1 ===Number(page)?'outline':'ghost'}>
-                    {index+ 1}
-                </Button>
-                
+                  href={`/categorie/${id}?page=${index + 1}&limit=${limit}`}
+                >
+                  <Button
+                    variant={index + 1 === Number(page) ? "outline" : "ghost"}
+                  >
+                    {index + 1}
+                  </Button>
                 </Link>
               </PaginationItem>
             ))}
-
-      
           </PaginationContent>
         </Pagination>
       )}

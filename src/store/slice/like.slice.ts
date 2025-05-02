@@ -11,7 +11,7 @@ const initialState: likeState = {
 
 const LikeSlice = createSlice({
   name: "Like",
-  initialState, 
+  initialState,
   reducers: {
     Like: (state, action: PayloadAction<ProduktType>) => {
       const likedId = state.items.find((item) => item.id === action.payload.id);

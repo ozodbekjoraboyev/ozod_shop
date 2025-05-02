@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/slice/login";
 
-export default function ReduxWrapper({ children }: { children: React.ReactNode }) {
+export default function ReduxWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false); // ✅
 

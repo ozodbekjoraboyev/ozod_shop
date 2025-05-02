@@ -9,19 +9,23 @@ type AuthSliceType = {
 };
 
 function isServerSide() {
-  return typeof window === 'undefined'
+  return typeof window === "undefined";
 }
 
-const authLocalString = isServerSide() ? undefined : localStorage.getItem("auth")
+const authLocalString = isServerSide()
+  ? undefined
+  : localStorage.getItem("auth");
 
-const initialState: AuthSliceType = authLocalString ? JSON.parse(authLocalString) : {}
+const initialState: AuthSliceType = authLocalString
+  ? JSON.parse(authLocalString)
+  : {};
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     login: (state, { payload }) => {
-      localStorage.setItem("auth", JSON.stringify(payload))
+      localStorage.setItem("auth", JSON.stringify(payload));
 
       state.accessToken = payload.accessToken;
       state.user = payload.user;

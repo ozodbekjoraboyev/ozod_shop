@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { TopKatigoriesType } from "@/type/Types";
 import axios from "axios";

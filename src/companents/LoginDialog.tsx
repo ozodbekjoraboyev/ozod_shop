@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import Image from "next/image"; 
+import Image from "next/image";
 import userIcon from "../assets/icons/user.svg";
 import { LoginForm } from "./LoginForm";
 

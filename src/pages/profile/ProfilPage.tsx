@@ -110,10 +110,10 @@ function Profile() {
                 </div>{" "}
                 <div className=" border pb-25 w-[450px] h-[300px] border-gray-300 rounded-md ">
                   <div>
-                 <div className=" items-center flex">
-                 <BellRing />
-                 <h2 className=" p-2">{name}</h2>
-                 </div>
+                    <div className=" items-center flex">
+                      <BellRing />
+                      <h2 className=" p-2">{name}</h2>
+                    </div>
                     <div className="h-[1px] bg-[lightgrey] w-full"></div>
                     <div className=" p-2">
                       <h2 className="font-bold text-xl ">{name}</h2>

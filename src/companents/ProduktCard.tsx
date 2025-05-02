@@ -16,7 +16,9 @@ function ProduktCard({ item }: { item?: CatgoriData }) {
   const dispatch = useDispatch();
 
   if (!item) {
-    return <div className="text-red-500">Mahsulot ma'lumotlari mavjud emas.</div>;
+    return (
+      <div className="text-red-500">Mahsulot ma'lumotlari mavjud emas.</div>
+    );
   }
 
   const addCart = (product: ProduktType) => {
@@ -75,12 +77,7 @@ function ProduktCard({ item }: { item?: CatgoriData }) {
           onClick={() => addCart(item)}
           className="p-2 rounded-md border border-blue-500 hover:bg-blue-600 hover:text-white transition-colors"
         >
-          <Image
-            width={24}
-            height={24}
-            src={savat}
-            alt="savat"
-          />
+          <Image width={24} height={24} src={savat} alt="savat" />
         </button>
       </div>
     </div>
